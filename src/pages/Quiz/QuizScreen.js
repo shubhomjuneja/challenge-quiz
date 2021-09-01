@@ -58,7 +58,7 @@ const QuizScreen = () => {
   return <div data-testid='quiz-card'>
     <div className='card'>
       { currentIdx >= questions.length ? (
-        <ResultScreen handleReset={resetQuiz} score={correctScore} />
+        <ResultScreen handleReset={resetQuiz} score={scorePercentage} />
       ) : (
         <div>
           <div className='cardData'>
