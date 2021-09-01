@@ -1,0 +1,22 @@
+.checked {
+    color: black;
+  }
+.cardData{
+  height: calc(100vh - 150px);
+}
+  .card{
+    background-color: #fff;
+    height: calc(100vh - 80px);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 40px;
+  }
+
+  @media only screen and (max-width:767px){
+    .card{
+       padding: 40px 26px;
+    }
+    .next-button{
+        margin: 0;
+    }
+}

@@ -1,0 +1,28 @@
+.card-heading i,.card-heading span{
+    font-size: 13px;
+    margin-right: 2px;
+}
+.card-heading{
+    width: 100%;
+}
+
+.card-heading h3{
+    font-size: 30px;
+    margin-bottom: 0;
+}
+.card-heading p{
+    color: #aea9a9;
+    font-weight: 500;
+    margin: 5px 0;
+}
+.question{
+    font-size: 18px;
+    color: #333;
+}
+.inner-text{
+    text-align: center;
+}
+
+.card-data {
+    width: 100%;
+}
