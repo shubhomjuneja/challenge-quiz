@@ -1,16 +1,16 @@
 import React from 'react'
-import './ProgressBar.css'
+import { ProgressBarWrap, DarkProgressBar } from './ProgressBarStyle'
 
 const ProgressBar = ({ barWidth }) => (
-  <div className='w3-light-grey'>
-    <div
-      className='w3-yellow dark-progress-bar'
+  <ProgressBarWrap>
+    <DarkProgressBar
       style={{
         height: '24px',
         width: barWidth
       }}
+      data-testid='dark-bar'
     />
-  </div>
+  </ProgressBarWrap>
 )
 
 export default ProgressBar

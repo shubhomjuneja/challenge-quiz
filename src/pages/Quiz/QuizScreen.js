@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react'
 import questionsJson from 'src/data/questions.json'
 import ProgressBar from './ProgressBar/ProgressBar'
-import './QuizScreen.css'
 import BottomProgressBar from './BottomBar/BottomBar'
 import ButtonComponent from 'src/components/button'
 import Questions from './Questions/Questions'
 import { toPercentage } from 'src/utils/utils'
 import ResultScreen from './ResultScreen/ResultScreen'
+import { Card, CardData } from './QuizScreenStyle'
 
 const QuizScreen = () => {
   const [currentIdx, setCurrentIdx] = useState(0)
@@ -44,24 +44,30 @@ const QuizScreen = () => {
     setSelectedAnswer(userAnswer)
   }
 
-  const completedPercentage = useMemo(() =>
-    toPercentage(currentIdx + 1, questions.length), [currentIdx, questions])
-  const lowestScorePercentage = useMemo(() =>
-    toPercentage(correctScore, questions.length), [correctScore, questions])
-  const scorePercentage = useMemo(() =>
-    toPercentage(correctScore, currentIdx + !!selectedAnswer),
-  [correctScore, currentIdx, selectedAnswer])
-  const highestScorePercentage = useMemo(() =>
-    toPercentage(questions.length - incorrectScore, questions.length),
-  [incorrectScore, questions])
+  const completedPercentage = useMemo(
+    () => toPercentage(currentIdx + 1, questions.length),
+    [currentIdx, questions]
+  )
+  const lowestScorePercentage = useMemo(
+    () => toPercentage(correctScore, questions.length),
+    [correctScore, questions]
+  )
+  const scorePercentage = useMemo(
+    () => toPercentage(correctScore, currentIdx + !!selectedAnswer),
+    [correctScore, currentIdx, selectedAnswer]
+  )
+  const highestScorePercentage = useMemo(
+    () => toPercentage(questions.length - incorrectScore, questions.length),
+    [incorrectScore, questions]
+  )
 
-  return <div data-testid='quiz-card'>
-    <div className='card'>
-      { currentIdx >= questions.length ? (
+  return (
+    <Card data-testid='card'>
+      {currentIdx >= questions.length ? (
         <ResultScreen handleReset={resetQuiz} score={scorePercentage} />
       ) : (
         <div>
-          <div className='cardData'>
+          <CardData data-testid='card-data'>
             <ProgressBar barWidth={completedPercentage} />
             <Questions
               currentIdx={currentIdx}
@@ -69,17 +75,18 @@ const QuizScreen = () => {
               selectedAnswer={selectedAnswer}
               onAnswerSelect={onAnswerSelect}
             />
-            {(currentIdx <= questions.length - 1 && selectedAnswer) ? (
-              <div className={'inner-text'}>
+            {currentIdx <= questions.length - 1 && selectedAnswer ? (
+              <div>
                 <ButtonComponent
                   className={'next-button'}
                   name={'next-button'}
-                  handleClick={() => nextQuestion(currentIdx + 1)}>
-                      Next
+                  handleClick={() => nextQuestion(currentIdx + 1)}
+                >
+                  Next
                 </ButtonComponent>
               </div>
-            ) : null }
-          </div>
+            ) : null}
+          </CardData>
           <BottomProgressBar
             lowestScore={lowestScorePercentage}
             currentScore={scorePercentage}
@@ -87,8 +94,8 @@ const QuizScreen = () => {
           />
         </div>
       )}
-    </div>
-  </div>
+    </Card>
+  )
 }
 
 export default QuizScreen

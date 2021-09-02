@@ -3,43 +3,53 @@ import { DIFFICULTY } from 'src/constants'
 import AnswerOptions from './Answers/Answers'
 import React from 'react'
 import questionsJson from 'src/data/questions.json'
-import './Questions.css'
 import get from 'lodash/get'
+import {
+  CardHeader,
+  CardBody,
+  QuestionHeading,
+  MessageWrap
+} from './QuestionsStyle'
 const questions = questionsJson || []
 
 const Questions = ({ currentIdx, onAnswerSelect, selectedAnswer, message }) => (
   <>
-    <div className='card-heading'>
+    <CardHeader data-testid='card-header'>
       <h3>{`Question  ${currentIdx + 1} out of ${questions.length}`}</h3>
-      <p>
-        {decodeURIComponent(get(questions[currentIdx], 'category'))}
-      </p>
-      <StarsComponent value={DIFFICULTY[get(questions[currentIdx], 'difficulty')]} />
-    </div>
+      <p>{decodeURIComponent(get(questions[currentIdx], 'category'))}</p>
+      <StarsComponent
+        value={DIFFICULTY[get(questions[currentIdx], 'difficulty')]}
+      />
+    </CardHeader>
 
-    <div className='card-data container'>
-      <h4 className='question'>
+    <CardBody data-testid='card-body'>
+      <QuestionHeading data-testid='card-heading'>
         {currentIdx + 1}.{' '}
         {decodeURIComponent(get(questions[currentIdx], 'question'))}
-      </h4>
-    </div>
+      </QuestionHeading>
+    </CardBody>
 
-    <div className='card-data container'>
+    <CardBody>
       {
-        <AnswerOptions currentQuestion={questions[currentIdx] || {}}
+        <AnswerOptions
+          currentQuestion={questions[currentIdx] || {}}
           handleAnswerSelect={onAnswerSelect}
-          active={selectedAnswer === get(questions[currentIdx], 'correct_answer')}
+          active={
+            selectedAnswer === get(questions[currentIdx], 'correct_answer')
+          }
           disabled={!!selectedAnswer}
-          wrongAnswer={selectedAnswer !== get(questions[currentIdx], 'correct_answer')}
+          wrongAnswer={
+            selectedAnswer !== get(questions[currentIdx], 'correct_answer')
+          }
           selectedAnswer={selectedAnswer}
         />
       }
       {message ? (
-        <div className='inner-text'>
+        <MessageWrap>
           <h3>{message}</h3>
-        </div>
+        </MessageWrap>
       ) : null}
-    </div>
+    </CardBody>
   </>
 )
 

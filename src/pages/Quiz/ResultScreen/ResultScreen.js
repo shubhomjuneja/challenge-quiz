@@ -1,16 +1,19 @@
 import ButtonComponent from 'src/components/button'
 import React from 'react'
+import { ResultWrap, ThanksText } from './ResultScreenStyle'
 
-const ResultScreen = ({ handleReset, score }) =>
-  <div align='center'>
-    <h3 className='thanks-text'>Thank You!</h3>
-    <h3 className='thanks-text'>Your score is {score}.</h3>
+const ResultScreen = ({ handleReset, score }) => (
+  <ResultWrap data-testid='result-wrap'>
+    <ThanksText>Thank You!</ThanksText>
+    <ThanksText>Your score is {score}.</ThanksText>
     <ButtonComponent
-      handleClick={handleReset}
+      handleClick={() => handleReset()}
       name={'reset-button'}
-      className='next-button'>
+      className='next-button'
+    >
       Restart
     </ButtonComponent>
-  </div>
+  </ResultWrap>
+)
 
 export default ResultScreen

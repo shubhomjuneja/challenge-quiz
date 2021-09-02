@@ -1,7 +1,6 @@
 body{
   background-color: lightgray;
   overflow: hidden;
-  /*font-family: 'Montserrat', sans-serif !important;*/
 }
 
 @media only screen and (max-width:767px){

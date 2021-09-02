@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import shuffle from 'lodash/shuffle'
-import './Answers.css'
-import { getAnswersArray } from '../../../../utils/utils'
+import { getAnswersArray } from 'src/utils/utils'
+import { OptionWrap, Options } from './AnswersStyle'
 
 const AnswerOptions = ({
   currentQuestion,
@@ -10,9 +10,9 @@ const AnswerOptions = ({
   disabled,
   selectedAnswer
 }) => {
-  const answers = useMemo(() =>
-    shuffle(getAnswersArray(currentQuestion)),
-  [currentQuestion])
+  const answers = useMemo(() => shuffle(getAnswersArray(currentQuestion)), [
+    currentQuestion
+  ])
 
   const getAnswerClass = (answer) => {
     if (selectedAnswer) {
@@ -32,27 +32,27 @@ const AnswerOptions = ({
     }
   }
 
-  return <div className='optionWrap' data-testid='options'>
-    { answers.map((answer, idx) =>
-      <div
-        onClick={handleAnswerSelect}
-        key={answer}
-        className={`options ${getAnswerClass(answer)}`}
-        data-testid='options'
-      >
-        <input
-          type='radio'
-          id={answer}
-          name={answer}
-          value={answer}
-          disabled={disabled
-          }
-        />
-        <label htmlFor='option'>{decodeURIComponent(answer)}</label>
-      </div>
-    )
-    }
-  </div>
+  return (
+    <OptionWrap data-testid='options'>
+      {answers.map((answer, idx) => (
+        <Options
+          key={answer}
+          className={`options ${getAnswerClass(answer)}`}
+        >
+          <input
+            type='radio'
+            id={answer}
+            name={answer}
+            value={answer}
+            disabled={disabled}
+            onChange={(e) => handleAnswerSelect(e)}
+            data-testid='answer-input'
+          />
+          <label htmlFor='option'>{decodeURIComponent(answer)}</label>
+        </Options>
+      ))}
+    </OptionWrap>
+  )
 }
 
 export default AnswerOptions

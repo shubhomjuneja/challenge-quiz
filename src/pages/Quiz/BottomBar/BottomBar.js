@@ -1,32 +1,36 @@
 import React from 'react'
-import './BottomBar.css'
+import {
+  ScoresWrap,
+  LightGrayBar,
+  DarkGrayBar,
+  ProbProgressBar,
+  IncorrectProgressBar
+} from './BottomBarStyle'
 
-const BottomBar = ({ currentScore, lowestScore, highestScore }) =>
+const BottomBar = ({ currentScore, lowestScore, highestScore }) => (
   <>
-    <div className={'scores-wrap'}>
+    <ScoresWrap>
       <p>Score: {currentScore}</p>
       <p>Max Score: {highestScore}</p>
-    </div>
-    <div className='w3-light-grey bottom-progress'>
-      <div
-        className='w3-black dark-progress-bar'
-        style={{ height: '24px', width: lowestScore }}
-      />
-      <div
-        className='w3-black prob-progress-bar'
+    </ScoresWrap>
+    <LightGrayBar>
+      <DarkGrayBar style={{ height: '24px', width: lowestScore }} data-testid='gray-bar' />
+      <ProbProgressBar
         style={{
           height: '24px',
           width: currentScore
         }}
+        data-testid='probability-progress-bar'
       />
-      <div
-        className='w3-black incorrect-progress-bar'
+      <IncorrectProgressBar
         style={{
           height: '24px',
           width: highestScore
         }}
+        data-testid='incorrect-progress-bar'
       />
-    </div>
+    </LightGrayBar>
   </>
+)
 
 export default BottomBar
