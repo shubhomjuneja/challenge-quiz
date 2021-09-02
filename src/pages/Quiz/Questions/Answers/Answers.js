@@ -29,6 +29,8 @@ const AnswerOptions = ({
           return 'disabled'
         }
       }
+    } else {
+      return ''
     }
   }
 
